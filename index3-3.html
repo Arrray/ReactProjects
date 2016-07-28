@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React 组件生命周期详解-销毁</title>
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+<script src="react-15.2.1/build/react.js"></script>
+<script src="react-15.2.1/build/react-dom.js"></script>
+<script src="react-15.2.1/build/JSXTransformer.js"></script>
+<script type="text/jsx">
+//    $(document).ready(
+//            function () {
+                var style = {
+                    color: "red",
+                    border: "1px #000 solid"
+                };
+                var HelloWorld = React.createClass({
+                    render: function () {
+                        console.log("render ,4");
+                        return <p ref="childp">Hello , {(function (obj) {
+                            if (obj.props.name)
+                                return obj.props.name;
+                            else
+                                return "World"
+                        })(this)}</p>
+                    },
+                    componentWillUnmount:function () {
+                        console.log("BOOOOOOOOOOOOOOOOOOOOOM !")
+                    }
+                });
+                var HelloUniverse = React.createClass({
+                    getInitialState: function () {
+                        return {name: ''}
+                    },
+                    handleChange: function (event) {
+                        if (event.target.value == "123"){
+                            ReactDOM.unmountComponentAtNode(document.getElementsByTagName("body")[0]);
+                            return;
+                        }
+                        this.setState({name: event.target.value});
+                    },
+                    render: function () {
+                        return <div>
+                            <HelloWorld name={this.state.name}></HelloWorld>
+                            <br/>
+                            <input type="text" onChange={this.handleChange}/>
+                        </div>
+                    }
+                });
+
+                ReactDOM.render(<div style={style}>
+                    <HelloUniverse></HelloUniverse>
+                </div>, document.body);
+//            }
+//    )
+
+</script>
+</body>
+</html>
+
+
+<!--React 组件生命周期详解-->
+
+<!--1.组件的生命周期-->
+
+<!--组件本质上是状态机，输入确定，输出一定确定-->
+<!--状态发生转换时会触发不同的钩子函数，从而让开发者有机会做出响应-->
+<!--可以用“事件”的思路来理解“状态”：-->
+
+<!--初始化阶段->运行中状态->销毁阶段-->
+
+<!--三者发生时间并不确定，需要根据页面来判断-->
+
+
+<!--2.不同生命周期可以自定义的函数-->
+
+<!--初始化阶段可以使用的钩子函数  &#45;&#45;触发顺序是由上到下-->
+<!--getDefaultProps:只调用一次,实例之间共享引用-->
+<!--getIninialState:初始化每个实例特有发状态-->
+<!--componentWillMount:render 之前最后一次修改状态的机会-->
+<!--render:只能访问 this.props 和 this.state ,只有一个顶层组件,不允许修改状态和DOM 输出-->
+<!--componentDidMount:成功 render 渲染完成真实DOM 之后触发,可以修改DOM-->
+
+<!--运行中可以调用的函数-->
+<!--componentWillReceiveProps:父组件修改属性触发,可以修改新属性,修改状态-->
+<!--shouldComponentUpdate:返回 false 会阻止 render 调用-->
+<!--componentWillUpdate:不能修改属性和状态-->
+<!--render:只能访问 this.props 和 this.state ,只有一个顶层组件,不允许修改状态和DOM输出-->
+<!--componentDidUpdate:可以修改DOM-->
+
+<!--销毁阶段可以调用的函数-->
+<!--componentWillUnmount:在删除组件之前进行清理操作,比如计时器和事件监听器-->
