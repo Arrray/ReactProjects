@@ -1,3 +1,17 @@
+
+什么是React?
+React 的特点:
+简单;
+声明式;
+React 的核心是组件,组件的设计目的是"提高代码复用率","降低测试难度"和"代码复杂度"。
+提高代码复用率:组件将数据和逻辑封装,类似面向对象中的类。
+降低测试难度:组件高内聚低耦合,很容易对单个组件进行测试。
+降低代码复杂度:直观的语法可以极大提高可读性。
+
+
+
+
+
 JSX 一种语法,而不是一种语言
 
 jsx特点
@@ -247,6 +261,37 @@ ReactDOM.render(<div style={style} ><HelloWorld></HelloWorld></div> ,document.bo
 
 
 
+React 组件生命周期详解
+
+1.组件的生命周期
+
+组件本质上是状态机，输入确定，输出一定确定
+状态发生转换时会触发不同的钩子函数，从而让开发者有机会做出响应
+可以用“事件”的思路来理解“状态”：
+
+初始化阶段->运行中状态->销毁阶段
+
+三者发生时间并不确定，需要根据页面来判断
+
+
+2.不同生命周期可以自定义的函数
+
+初始化阶段可以使用的钩子函数  --触发顺序是由上到下
+getDefaultProps:只调用一次,实例之间共享引用
+getIninialState:初始化每个实例特有发状态
+componentWillMount:render 之前最后一次修改状态的机会
+render:只能访问 this.props 和 this.state ,只有一个顶层组件,不允许修改状态和DOM 输出
+componentDidMount:成功 render 渲染完成真实DOM 之后触发,可以修改DOM
+
+运行中可以调用的函数
+componentWillReceiveProps:父组件修改属性触发,可以修改新属性,修改状态
+shouldComponentUpdate:返回 false 会阻止 render 调用
+componentWillUpdate:不能修改属性和状态
+render:只能访问 this.props 和 this.state ,只有一个顶层组件,不允许修改状态和DOM输出
+componentDidUpdate:可以修改DOM
+
+销毁阶段可以调用的函数
+componentWillUnmount:在删除组件之前进行清理操作,比如计时器和事件监听器
 
 
 
