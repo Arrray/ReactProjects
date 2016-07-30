@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React 属性和状态详解-状态</title>
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+<script src="react-15.2.1/build/react.js"></script>
+<script src="react-15.2.1/build/react-dom.js"></script>
+<script src="react-15.2.1/build/JSXTransformer.js"></script>
+<script type="text/jsx">
+    //    $(document).ready(
+    //            function () {
+    var style = {
+        color: "red",
+        border: "1px #000 solid"
+    };
+    var HelloWorld = React.createClass({
+        render: function () {
+            console.log("render ,4");
+            return <p>Hello , {this.props.name}</p>
+        }
+    });
+    var HelloUniverse = React.createClass({
+        getInitialState: function () {
+            return {name: 'Tim'}
+        },
+        handleChange: function (event) {
+            this.setState({name: event.target.value});
+        },
+        render: function () {
+            return <div>
+                <HelloWorld name={this.state.name}></HelloWorld>
+                <br/>
+                <input type="text" onChange={this.handleChange}/>
+            </div>
+        }
+    });
+    ReactDOM.render(<div style={style}>
+        <HelloUniverse></HelloUniverse>
+    </div>, document.body);
+    //            }
+    //    )
+
+</script>
+</body>
+</html>
+
+<!--React 属性和状态详解-->
+
+<!--1.属性的含义和用法-->
+
+<!--1.1 属性的含义-->
+<!--props = properties-->
+<!--属性:一个事物的形式与关系-->
+<!--属性往往是与生俱来、无法自己改变的-->
+
+<!--1.2 属性的用法-->
+
+<!--第一种方法,直接给属性赋值-->
+<!--<HelloWorld name="Tim"/>-->
+<!--<HelloWorld name={123} />-->
+<!--<HelloWorld name={"123"} />-->
+<!--<HelloWorld name={[1,2,3]} />-->
+<!--<HelloWorld name={variable} />-->
+
+<!--示例代码-->
+<!--<script type="text/jsx">-->
+<!--//    $(document).ready(-->
+<!--//            function () {-->
+<!--var style = {-->
+<!--color: "red",-->
+<!--border: "1px #000 solid"-->
+<!--};-->
+<!--var HelloWorld = React.createClass({-->
+<!--render: function () {-->
+<!--console.log("render ,4");-->
+<!--return <p ref="childp">Hello , {(function (obj) {-->
+<!--if (obj.props.name)-->
+<!--return obj.props.name;-->
+<!--else-->
+<!--return "World"-->
+<!--})(this)}</p>-->
+<!--}-->
+<!--});-->
+<!--var HelloUniverse = React.createClass({-->
+<!--getInitialState: function () {-->
+<!--return {name: ''}-->
+<!--},-->
+<!--handleChange: function (event) {-->
+<!--this.setState({name: event.target.value});-->
+<!--},-->
+<!--render: function () {-->
+<!--return <div>-->
+<!--<HelloWorld name={this.state.name}></HelloWorld>-->
+<!--<br/>-->
+<!--<input type="text" onChange={this.handleChange}/>-->
+<!--</div>-->
+<!--}-->
+<!--});-->
+
+<!--ReactDOM.render(<div style={style}>-->
+<!--<HelloUniverse></HelloUniverse>-->
+<!--</div>, document.body);-->
+<!--//            }-->
+<!--//    )-->
+
+<!--</script>-->
+
+<!--第二种方法,定义变量   展开对象形式-->
+<!--var props={-->
+<!--one:"123",-->
+<!--two:321-->
+<!--}-->
+<!--<HelloWorld{...props} />-->
+
+<!--示例代码-->
+<!--<script type="text/jsx">-->
+<!--//    $(document).ready(-->
+<!--//            function () {-->
+<!--var style = {-->
+<!--color: "red",-->
+<!--border: "1px #000 solid"-->
+<!--};-->
+<!--var HelloWorld = React.createClass({-->
+<!--render: function () {-->
+<!--console.log("render ,4");-->
+<!--return <p>Hello , {this.props.name1 + ' ' + this.props.name2}</p>-->
+<!--}-->
+<!--});-->
+<!--var HelloUniverse = React.createClass({-->
+<!--getInitialState: function () {-->
+<!--return {name1: 'Tim',name2:'Jhon'}-->
+<!--},-->
+<!--handleChange: function (event) {-->
+<!--this.setState({name: event.target.value});-->
+<!--},-->
+<!--render: function () {-->
+<!--return <div>-->
+<!--<HelloWorld {...this.state}></HelloWorld>-->
+<!--<br/>-->
+<!--<input type="text" onChange={this.handleChange}/>-->
+<!--</div>-->
+<!--}-->
+<!--});-->
+
+<!--ReactDOM.render(<div style={style}>-->
+<!--<HelloUniverse></HelloUniverse>-->
+<!--</div>, document.body);-->
+<!--//            }-->
+<!--//    )-->
+
+<!--</script>-->
+
+<!--第三种方法,setProps     几乎不会使用-->
+<!--var instance=ReactDOM.render(<HelloWorld></HelloWorld>,document.body);-->
+<!--instance.setProps({name:"Tim"});-->
+
+
+<!--2.状态的含义和用法-->
+
+<!--2.1 状态的含义-->
+<!--state-->
+<!--状态:事物所处的状况-->
+<!--状态是由事物自行处理、不断变化的-->
+
+<!--2.2 状态的用法-->
+<!--getlnitialState : 初始化每个实例特有的状态-->
+
+<!--setState : 更新组件状态-->
+
+<!--3.属性和状态对比-->
+
+<!--3.1 属性和状态的相似点-->
+<!--*都是纯JS 对象-->
+<!--*都会触发 render 更新-->
+<!--*都具有确定性-->
+
+<!--3.2 属性和状态大对比-->
+                        <!--属性    状态-->
+<!--能否从父组件获取初始值?    yes    no-->
+<!--能否由父组件修改?         yes    no-->
+<!--能否在组件内部设置默认值?  yes    yes-->
+<!--能否在组件内部修改?        no    yes-->
+<!--能否设置子组件的初始值?    yes    no-->
+<!--能否修改子组件的值?        yes   no-->
+
+<!--3.3 区别方法-->
+<!--组件在运行时需要修改的数据就是状态-->
+
+
+
+
+
+
+
+
+
+
+
+
